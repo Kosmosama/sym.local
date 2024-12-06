@@ -18,43 +18,13 @@ class Usuario implements IEntity
         $this->role = $role;
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    public function setUsername($username)
-    {
-        $this->username = $username;
-        return $this;
-    }
-
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
-    }
-
-    public function setRole($role)
-    {
-        $this->role = $role;
-        return $this;
-    }
+    public function getId(): ?int { return $this->id; }
+    public function getUsername(){ return $this->username; }
+    public function getPassword(){ return $this->password; }
+    public function getRole(){ return $this->role; }
+    public function setUsername($username){ $this->username = $username; return $this; }
+    public function setPassword($password){ $this->password = $password; return $this; }
+    public function setRole($role){ $this->role = $role; return $this; }
 
     public function toArray(): array
     {
