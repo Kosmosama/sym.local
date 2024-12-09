@@ -4,14 +4,14 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-index:
-    path: /
-    controller: App\Controller\ProyectoController::index
+# index:
+#     path: /
+#     controller: App\Controller\ProyectoController::index
 
-uno:
-    path: /uno
-    controller: App\Controller\ProyectoController::index1
+# uno:
+#     path: /uno
+#     controller: App\Controller\ProyectoController::index1
 
-dos:
-    path: /dos
-    controller: App\Controller\ProyectoController::index2
+# dos:
+#     path: /dos
+#     controller: App\Controller\ProyectoController::index2

@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Imagen;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ProyectoController extends AbstractController
 {
+
+    #[Route('/', name: 'sym_index')]
     public function index()
     {
         for ($i = 1; $i <= 12; $i++) {
@@ -25,22 +28,9 @@ class ProyectoController extends AbstractController
         ]);
     }
 
-    public function index1()
-    {
+    #[Route('/about', name: 'sym_about')]
+    public function about() {
         return $this->render('prueba1.html.twig');
-    }
-
-    public function index2()
-    {
-        $nombre = 'Juan';
-        $saludo = 'Buenos días a todos';
-        $nombres = ['Ana', 'Enrique', 'Laura', 'Pablo'];
-        return $this->render('prueba2.html.twig', [
-            'nombre' => $nombre,
-            'saludo' => $saludo,
-            'nombres' => $nombres,
-            'fecha' => new \DateTime()
-        ]);
     }
 
 }
