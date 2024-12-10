@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Asociado;
 use App\Entity\Imagen;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProyectoController extends AbstractController
 {
-
     #[Route('/', name: 'sym_index')]
     public function index()
     {
@@ -23,8 +23,15 @@ class ProyectoController extends AbstractController
             );
         }
 
-        return $this->render('imagenes.html.twig', [
-            'imagenes' => $imagenesHome
+        $asociados = [
+            new Asociado("Asociado 1", "log1.jpg", "Descripción del asociado 1"),
+            new Asociado("Asociado 2", "log2.jpg", "Descripción del asociado 2"),
+            new Asociado("Asociado 3", "log3.jpg", "Descripción del asociado 3")
+        ];
+
+        return $this->render('index.html.twig', [
+            'imagenes' => $imagenesHome,
+            'asociados' => $asociados
         ]);
     }
 
