@@ -8,7 +8,7 @@ class Asociado implements IEntity {
     private $logo = "";
     private $descripcion = "";
 
-    const RUTA_LOGOS_ASOCIADOS = '/../../public/images/asociados/';
+    const RUTA_LOGOS_ASOCIADOS = '/images/asociados/';
 
     public function __construct($nombre = "", $logo = "", $descripcion = "") {
         $this->nombre = $nombre;

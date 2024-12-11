@@ -1,35 +1,40 @@
-{% for imagen in imagenes %}
-	<div class="col-xs-12 col-sm-6 col-md-3">
-		<div class="sol">
-			<a href="<?= $imagen->getUrlGaleria() ?>" class="gallery">
-				<img class="img-responsive" src="{{ asset(imagen.getUrlPortfolio()) }}" alt="First category picture"/>
-			</a>
-			<div class="row box-content">
-				<div class="col-xs-4">
-					<i class="fa fa-eye"></i>
-					{{ imagen.getNumVisualizaciones() }}
-				</div>
-				<div class="col-xs-4">
-					<i class="fa fa-heart"></i>
-					{{ imagen.getNumLikes() }}
-				</div>
-				<div class="col-xs-4">
-					<i class="fa fa-download"></i>
-					{{ imagen.getNumDownloads() }}
+<div id="category{{ idCategoria }}" class="tab-pane active">
+	<div class="row popup-gallery">
+		{% for imagen in imagenes %}
+			<div class="col-xs-12 col-sm-6 col-md-3">
+				<div class="sol">
+					<a href="<?= $imagen->getUrlGaleria() ?>" class="gallery">
+						<img class="img-responsive" src="{{ asset(imagen.getUrlPortfolio()) }}" alt="First category picture"/>
+					</a>
+					<div class="row box-content">
+						<div class="col-xs-4">
+							<i class="fa fa-eye"></i>
+							{{ imagen.getNumVisualizaciones() }}
+						</div>
+						<div class="col-xs-4">
+							<i class="fa fa-heart"></i>
+							{{ imagen.getNumLikes() }}
+						</div>
+						<div class="col-xs-4">
+							<i class="fa fa-download"></i>
+							{{ imagen.getNumDownloads() }}
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		{% endfor %}
 	</div>
 
 	<nav class="text-center">
-		<ul class="pagination">
-			{% if idCategoria==1 %}
-				<li class="active">
-				{% else %}
-					<li>
-					{% endif %}
-					<a href="#">1</a>
-				</li>
-			</ul>
-		</nav>
-	{% endfor %}
+	<ul class="pagination">
+		{% if idCategoria==1 %}
+			<li class="active">
+		{% else %}
+		<li>
+		{% endif %}
+		
+		<a href="#">{{ idCategoria }}</a>
+		</li>
+		</ul>
+	</nav>
+</div>
