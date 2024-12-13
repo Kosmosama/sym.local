@@ -37,7 +37,23 @@ class ProyectoController extends AbstractController
 
     #[Route('/about', name: 'sym_about')]
     public function about() {
-        return $this->render('prueba1.html.twig');
+        $imagenesClientes[] = new Imagen('client1.jpg', 'MISS BELLA');
+        $imagenesClientes[] = new Imagen('client2.jpg', 'DON PENO');
+        $imagenesClientes[] = new Imagen('client3.jpg', 'SWEETY');
+        $imagenesClientes[] = new Imagen('client4.jpg', 'LADY');
+
+        return $this->render('about.html.twig', [
+            'imagenesClientes' => $imagenesClientes
+        ]);
     }
 
+    #[Route('/contact', name: 'sym_contact')]
+    public function contact() {
+        return $this->render('contact.html.twig');
+    }
+
+    #[Route('/blog', name: 'sym_blog')]
+    public function blog() {
+        return $this->render('blog.html.twig');
+    }
 }
