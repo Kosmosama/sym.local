@@ -19,6 +19,12 @@ class Categoria
     #[ORM\Column]
     private ?int $numImagenes = null;
 
+    public function __construct($nombre = "", $numImagenes = 0)
+    {
+        $this->nombre = $nombre;
+        $this->numImagenes = $numImagenes;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

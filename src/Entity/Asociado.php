@@ -22,6 +22,14 @@ class Asociado
     #[ORM\Column(length: 255)]
     private ?string $descripcion = null;
 
+    const RUTA_LOGOS_ASOCIADOS = '/../../public/images/asociados/';
+
+    public function __construct($nombre = "", $logo = "", $descripcion = "") {
+        $this->nombre = $nombre;
+        $this->logo = $logo;
+        $this->descripcion = $descripcion;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,5 +69,9 @@ class Asociado
         $this->descripcion = $descripcion;
 
         return $this;
+    }
+
+    public function getUrl() {
+        return self::RUTA_LOGOS_ASOCIADOS . $this->logo;
     }
 }

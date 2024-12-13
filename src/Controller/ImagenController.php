@@ -10,7 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class ImagenController extends AbstractController
 {
-    #[Route('/imagen', name: 'app_imagen')]
+    #[Route('/imagen', name: 'sym_imagen')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $imagenes = $doctrine->getRepository(Imagen::class)->findAll();
@@ -18,5 +18,4 @@ class ImagenController extends AbstractController
             'imagenes' => $imagenes
         ]);
     }
-
 }
