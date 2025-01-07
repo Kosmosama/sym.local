@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Asociado;
 use App\Entity\Imagen;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,8 +25,36 @@ class ProyectoController extends AbstractController
             $imagenesHome[] = $imagen;
         }
 
+        $asociados = [
+            new Asociado("Asociado 1", "log1.jpg", "Descripción del asociado 1"),
+            new Asociado("Asociado 2", "log2.jpg", "Descripción del asociado 2"),
+            new Asociado("Asociado 3", "log3.jpg", "Descripción del asociado 3")
+        ];
+
         return $this->render('index.html.twig', [
             'imagenes' => $imagenesHome,
+            'asociados' => $asociados
+        ]);
+    }
+
+    #[Route('/galeria', name: 'sym_galeria')]
+    public function galeria()
+    {
+        $imagenesHome = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $imagen = new Imagen();
+            $imagen->setNombre("$i.jpg")
+                ->setDescripcion("descripción imagen $i")
+                ->setCategoria(1)
+                ->setNumVisualizaciones(rand(1, 500))
+                ->setNumLikes(rand(1, 700))
+                ->setNumDownloads(rand(100, 200));
+            
+            $imagenesHome[] = $imagen;
+        }
+
+        return $this->render('galeria.html.twig', [
+            'imagenes' => $imagenesHome
         ]);
     }
 
@@ -66,4 +95,13 @@ class ProyectoController extends AbstractController
     {
         return $this->render('blog.html.twig');
     }
+
+    #[Route('/imagen/{id}', name: 'sym_imagen_show')]
+    public function show(Imagen $imagen)
+    {
+        return $this->render('imagen/show.html.twig', [
+            'imagen' => $imagen
+        ]);
+    }
+
 }

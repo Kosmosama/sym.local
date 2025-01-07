@@ -22,7 +22,7 @@ class Asociado
     #[ORM\Column(length: 255)]
     private ?string $descripcion = null;
 
-    const RUTA_LOGOS_ASOCIADOS = '/../../public/images/asociados/';
+    const RUTA_LOGOS_ASOCIADOS = '/images/asociados/';
 
     public function __construct($nombre = "", $logo = "", $descripcion = "") {
         $this->nombre = $nombre;

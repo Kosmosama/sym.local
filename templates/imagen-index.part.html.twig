@@ -3,7 +3,7 @@
         {% for imagen in imagenes %}
             <div class="col-xs-12 col-sm-6 col-md-3">
                 <div class="sol">
-                    <a href="{{ imagen.getUrlGaleria() }}" class="gallery"> <!-- GetUrlGaleria? -->
+                    <a href="{{ path('sym_imagen', { id: imagen.getId() }) }}" class="gallery">
                         <img class="img-responsive" src="{{ asset(imagen.getUrlPortfolio()) }}" alt="Category {{ idCategoria }} picture"/>
                     </a>
                     <div class="row box-content">
