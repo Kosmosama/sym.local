@@ -1,3 +1,46 @@
-<td>
-	<a href="{{ path('sym_imagen_show', { id: imagen.getId() }) }}" data-toggle="tooltip" data-originaltitle="More information">{{ imagen.getNombre() }}</a>
-</td>
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles de Imagen{% endblock %}
+
+{% block principal %}
+    <h1>Detalles de Imagen</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ imagen.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ imagen.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ imagen.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Categoría</th>
+                <td>{{ imagen.categoria }}</td>
+            </tr>
+            <tr>
+                <th>Visualizaciones</th>
+                <td>{{ imagen.numVisualizaciones }}</td>
+            </tr>
+            <tr>
+                <th>Likes</th>
+                <td>{{ imagen.numLikes }}</td>
+            </tr>
+            <tr>
+                <th>Descargas</th>
+                <td>{{ imagen.numDownloads }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_imagen_index') }}">Volver a la lista</a>
+
+    <a href="{{ path('app_imagen_edit', {'id': imagen.id}) }}">Editar</a>
+
+    {{ include('imagen/_delete_form.html.twig') }}
+{% endblock %}
