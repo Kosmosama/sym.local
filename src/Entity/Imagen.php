@@ -31,9 +31,6 @@ class Imagen
     private ?string $descripcion = null;
 
     #[ORM\Column]
-    private ?int $categoria = null;
-
-    #[ORM\Column]
     private ?int $numVisualizaciones = null;
 
     #[ORM\Column]
@@ -44,6 +41,9 @@ class Imagen
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $password = null;
+
+    #[ORM\ManyToOne(inversedBy: 'imagens')]
+    private ?Categoria $categoria = null;
 
     public function __construct(
         $nombre = "",
@@ -89,18 +89,6 @@ class Imagen
     public function setDescripcion(string $descripcion): static
     {
         $this->descripcion = $descripcion;
-
-        return $this;
-    }
-
-    public function getCategoria(): ?int
-    {
-        return $this->categoria;
-    }
-
-    public function setCategoria(int $categoria): static
-    {
-        $this->categoria = $categoria;
 
         return $this;
     }
@@ -157,4 +145,16 @@ class Imagen
     public function getUrlGaleria() { return self::RUTA_IMAGENES_GALERIA . $this->getNombre(); }
     public function getUrlClientes() { return self::RUTA_IMAGENES_CLIENTES . $this->getNombre(); }
     public function getUrlSubidas() { return self::RUTA_IMAGENES_SUBIDAS . $this->getNombre(); }
+
+    public function getCategoria(): ?Categoria
+    {
+        return $this->categoria;
+    }
+
+    public function setCategoria(?Categoria $categoria): static
+    {
+        $this->categoria = $categoria;
+
+        return $this;
+    }
 }
