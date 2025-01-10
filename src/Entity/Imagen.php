@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImagenRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ImagenRepository::class)]
 class Imagen
@@ -18,8 +19,13 @@ class Imagen
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $nombre = null;
+    #[ORM\Column(type:'string', length:255)]
+    /**
+    * @Assert\File(
+    * mimeTypes={"image/jpeg","image/png"},
+    * mimeTypesMessage = "Solamente se permiten archivos jpeg o png.")
+    */
+    private $nombre;
 
     #[ORM\Column(length: 255)]
     private ?string $descripcion = null;
