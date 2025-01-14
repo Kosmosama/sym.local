@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Categoria;
 use App\Entity\Imagen;
+use Doctrine\DBAL\Types\DateType;
 use PhpParser\Node\Scalar\MagicConst\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -63,6 +64,8 @@ class ImagenType extends AbstractType
                 'required' => false,
                 'label_attr' => ['class' => 'etiqueta']
             ])
+            ->add('fecha',DateType::class, [
+                'widget' => 'single_text'])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Las contraseñas deben coincidir.',
