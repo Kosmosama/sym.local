@@ -7,7 +7,7 @@ parameters:
     images_directory_gallery: '%kernel.project_dir%/public/images/index/gallery'
     images_directory_portfolio: '%kernel.project_dir%/public/images/index/portfolio'
     images_directory_clients: '%kernel.project_dir%/public/images/clients'
-    images_directory_subidas: '%kernel.project_dir%/public/images/galeria'
+    images_directory_subidas: '%kernel.project_dir%/public/images/imagenes_subidas'
 
 services:
     # default configuration for services in *this* file
