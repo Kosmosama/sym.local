@@ -13,17 +13,17 @@ class ProyectoController extends AbstractController
     public function index()
     {
         $imagenesHome = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $imagen = new Imagen();
-            $imagen->setNombre("$i.jpg")
-                ->setDescripcion("descripción imagen $i")
-                ->setCategoria(1)
-                ->setNumVisualizaciones(rand(1, 500))
-                ->setNumLikes(rand(1, 700))
-                ->setNumDownloads(rand(100, 200));
+        // for ($i = 1; $i <= 12; $i++) {
+        //     $imagen = new Imagen();
+        //     $imagen->setNombre("$i.jpg")
+        //         ->setDescripcion("descripción imagen $i")
+        //         ->setCategoria(1)
+        //         ->setNumVisualizaciones(rand(1, 500))
+        //         ->setNumLikes(rand(1, 700))
+        //         ->setNumDownloads(rand(100, 200));
             
-            $imagenesHome[] = $imagen;
-        }
+        //     $imagenesHome[] = $imagen;
+        // }
 
         $asociados = [
             new Asociado("Asociado 1", "log1.jpg", "Descripción del asociado 1"),
@@ -41,17 +41,17 @@ class ProyectoController extends AbstractController
     public function galeria()
     {
         $imagenesHome = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $imagen = new Imagen();
-            $imagen->setNombre("$i.jpg")
-                ->setDescripcion("descripción imagen $i")
-                ->setCategoria(1)
-                ->setNumVisualizaciones(rand(1, 500))
-                ->setNumLikes(rand(1, 700))
-                ->setNumDownloads(rand(100, 200));
+        // for ($i = 1; $i <= 12; $i++) {
+        //     $imagen = new Imagen();
+        //     $imagen->setNombre("$i.jpg")
+        //         ->setDescripcion("descripción imagen $i")
+        //         ->setCategoria(1)
+        //         ->setNumVisualizaciones(rand(1, 500))
+        //         ->setNumLikes(rand(1, 700))
+        //         ->setNumDownloads(rand(100, 200));
             
-            $imagenesHome[] = $imagen;
-        }
+        //     $imagenesHome[] = $imagen;
+        // }
 
         return $this->render('galeria.html.twig', [
             'imagenes' => $imagenesHome
@@ -63,21 +63,21 @@ class ProyectoController extends AbstractController
     {
         $imagenesClientes = [];
         
-        $cliente1 = new Imagen();
-        $cliente1->setNombre('client1.jpg')->setDescripcion('MISS BELLA');
-        $imagenesClientes[] = $cliente1;
+        // $cliente1 = new Imagen();
+        // $cliente1->setNombre('client1.jpg')->setDescripcion('MISS BELLA');
+        // $imagenesClientes[] = $cliente1;
 
-        $cliente2 = new Imagen();
-        $cliente2->setNombre('client2.jpg')->setDescripcion('DON PENO');
-        $imagenesClientes[] = $cliente2;
+        // $cliente2 = new Imagen();
+        // $cliente2->setNombre('client2.jpg')->setDescripcion('DON PENO');
+        // $imagenesClientes[] = $cliente2;
 
-        $cliente3 = new Imagen();
-        $cliente3->setNombre('client3.jpg')->setDescripcion('SWEETY');
-        $imagenesClientes[] = $cliente3;
+        // $cliente3 = new Imagen();
+        // $cliente3->setNombre('client3.jpg')->setDescripcion('SWEETY');
+        // $imagenesClientes[] = $cliente3;
 
-        $cliente4 = new Imagen();
-        $cliente4->setNombre('client4.jpg')->setDescripcion('LADY');
-        $imagenesClientes[] = $cliente4;
+        // $cliente4 = new Imagen();
+        // $cliente4->setNombre('client4.jpg')->setDescripcion('LADY');
+        // $imagenesClientes[] = $cliente4;
 
         return $this->render('about.html.twig', [
             'imagenesClientes' => $imagenesClientes,

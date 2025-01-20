@@ -4,17 +4,17 @@ namespace App\Form;
 
 use App\Entity\Categoria;
 use App\Entity\Imagen;
-use Doctrine\DBAL\Types\DateType;
-use PhpParser\Node\Scalar\MagicConst\File;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ImagenType extends AbstractType
 {
@@ -44,10 +44,21 @@ class ImagenType extends AbstractType
                 'required' => false,
                 'label_attr' => ['class' => 'etiqueta']
             ])
-            ->add('categoria', NumberType::class, [
-                'label' => 'Categoría:',
-                'label_attr' => ['class' => 'etiqueta', 'value' => '1'],
-                'data' => '1',
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Las contraseñas deben coincidir.',
+                'required' => true,
+                'first_options' => [
+                    'label' => 'Password',
+                    'label_attr' => ['class' => 'etiqueta']
+                ],
+                'second_options' => [
+                    'label' => 'Repetir Password',
+                    'label_attr' => ['class' => 'etiqueta']
+                ],
+            ])
+            ->add('fecha', DateType::class, [
+                'widget' => 'single_text'
             ])
             ->add('numVisualizaciones', NumberType::class, [
                 'label' => 'Número de Visualizaciones:',
@@ -64,21 +75,7 @@ class ImagenType extends AbstractType
                 'required' => false,
                 'label_attr' => ['class' => 'etiqueta']
             ])
-            ->add('fecha',DateType::class, [
-                'widget' => 'single_text'])
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'Las contraseñas deben coincidir.',
-                'required' => true,
-                'first_options' => [
-                    'label' => 'Password',
-                    'label_attr' => ['class' => 'etiqueta']
-                ],
-                'second_options' => [
-                    'label' => 'Repetir Password',
-                    'label_attr' => ['class' => 'etiqueta']
-                ],
-            ]);
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

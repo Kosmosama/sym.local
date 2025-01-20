@@ -24,7 +24,7 @@ final class ImagenController extends AbstractController
     ): Response {
         $imagenes = $imagenBLL->getImagenesConOrdenacion($ordenacion);
         return $this->render('imagen/index.html.twig', [
-            'imagenes' => $imagenes
+            'imagens' => $imagenes
         ]);
     }
 
@@ -46,6 +46,9 @@ final class ImagenController extends AbstractController
             $file->move($this->getParameter('images_directory_subidas'), $fileName);
             // Actualizamos el nombre del archivo en el objeto imagen al nuevo generado
             $imagen->setNombre($fileName);
+            $usuario = $this->getUser();
+            $imagen->setUsuario($usuario);
+
             $entityManager->persist($imagen);
             $entityManager->flush();
             $this->addFlash('mensaje', 'Se ha creado la imagen ' . $imagen->getNombre());
@@ -66,7 +69,7 @@ final class ImagenController extends AbstractController
         $fechaFinal = $request->request->get('fechaFinal');
         $imagenes = $imagenRepository->findImagenes($busqueda, $fechaInicial, $fechaFinal);
         return $this->render('imagen/index.html.twig', [
-            'imagenes' => $imagenes,
+            'imagens' => $imagenes,
             'busqueda' => $busqueda,
             'fechaInicial' => $fechaInicial,
             'fechaFinal' => $fechaFinal

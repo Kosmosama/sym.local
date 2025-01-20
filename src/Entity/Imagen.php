@@ -42,12 +42,17 @@ class Imagen
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $password = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'imagens')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Categoria $categoria = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $fecha = null;
+
+    #[ORM\ManyToOne(inversedBy: 'imagenes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $usuario = null;
 
     public function __construct(
         $nombre = "",
@@ -60,7 +65,7 @@ class Imagen
     ) {
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
-        $this->categoria = $categoria;
+        // $this->categoria = $categoria    ;
         $this->numVisualizaciones = $numVisualizaciones;
         $this->numLikes = $numLikes;
         $this->numDownloads = $numDownloads;
@@ -170,6 +175,18 @@ class Imagen
     public function setFecha(?\DateTimeInterface $fecha): static
     {
         $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    public function getUsuario(): ?User
+    {
+        return $this->usuario;
+    }
+
+    public function setUsuario(?User $usuario): static
+    {
+        $this->usuario = $usuario;
 
         return $this;
     }

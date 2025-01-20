@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Imagen;
+use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -34,9 +36,9 @@ class ImagenRepository extends ServiceEntityRepository
 
         if (!is_null($descripcion) && $descripcion !== '') {
             $qb->andWhere(
-                $qb->expr()->orX(
+            $qb->expr()->orX(
                     $qb->expr()->like('i.descripcion', ':val'),
-                    $qb->expr()->like('i.nombre', ':val')
+                        $qb->expr()->like('i.nombre', ':val')
                 )
             )
                 ->setParameter('val', '%' . $descripcion . '%');
@@ -52,16 +54,32 @@ class ImagenRepository extends ServiceEntityRepository
                 ->setParameter('fechaFinal', $dtFechaFinal);
         }
         return $qb->getQuery()->getResult();
+    } 
+
+    private function addUserFilter(QueryBuilder $qb, User $usuario)
+    {
+        // Si no es administrador se aplica el filtro.
+        // En caso contrario, no se aplica ningún filtro
+        if (in_array('ROLE_ADMIN', $usuario->getRoles()) === false) {
+            $qb->innerJoin('imagen.usuario', 'usuario')
+                ->andWhere($qb->expr()->eq('imagen.usuario', ':usuario'))
+                ->setParameter('usuario', $usuario);
+        }
     }
 
-    public function findImagenesConCategoria(string $ordenacion, string $tipoOrdenacion)
-    {
+    public function findImagenesConCategoria(
+        string $ordenacion,
+        string $tipoOrdenacion,
+        User $usuario
+    ) {
         $qb = $this->createQueryBuilder('imagen');
         $qb->addSelect('categoria')
             ->innerJoin('imagen.categoria', 'categoria')
             ->orderBy('imagen.' . $ordenacion, $tipoOrdenacion);
+        $this->addUserFilter($qb, $usuario);
         return $qb->getQuery()->getResult();
     }
+
 
     //    /**
     //     * @return Imagen[] Returns an array of Imagen objects

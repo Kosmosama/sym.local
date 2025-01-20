@@ -15,7 +15,7 @@ class ImagenController1 extends AbstractController
     {
         $imagenes = $doctrine->getRepository(Imagen::class)->findAll();
         return $this->render('imagen/index.html.twig', [
-            'imagenes' => $imagenes
+            'imagens' => $imagenes
         ]);
     }
 }
