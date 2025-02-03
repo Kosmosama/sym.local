@@ -30,7 +30,7 @@ class ImagenRepository extends ServiceEntityRepository
     /**
      * @return Imagen[] Returns an array of Imagen objects
      */
-    public function findImagenes(string $descripcion, string $fechaInicial, $fechaFinal): array
+    public function findImagenes(string $descripcion, string $fechaInicial, $fechaFinal, User $usuario): array
     {
         $qb = $this->createQueryBuilder('i');
 
@@ -53,6 +53,9 @@ class ImagenRepository extends ServiceEntityRepository
             $qb->andWhere($qb->expr()->lte('i.fecha', ':fechaFinal'))
                 ->setParameter('fechaFinal', $dtFechaFinal);
         }
+
+        $this->addUserFilter($qb, $usuario);
+
         return $qb->getQuery()->getResult();
     } 
 

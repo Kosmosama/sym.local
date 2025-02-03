@@ -67,7 +67,8 @@ final class ImagenController extends AbstractController
         $busqueda = $request->request->get('busqueda');
         $fechaInicial = $request->request->get('fechaInicial');
         $fechaFinal = $request->request->get('fechaFinal');
-        $imagenes = $imagenRepository->findImagenes($busqueda, $fechaInicial, $fechaFinal);
+        $usuarioLogueado = $this->getUser();
+        $imagenes = $imagenRepository->findImagenes($busqueda, $fechaInicial, $fechaFinal, $usuarioLogueado);
         return $this->render('imagen/index.html.twig', [
             'imagens' => $imagenes,
             'busqueda' => $busqueda,

@@ -12,6 +12,9 @@ security:
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
     firewalls:
+        api:
+            pattern: ^/api
+            stateless: true
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -40,6 +43,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # Necesario ROLE_ADMIN el acceso a /imagen*
+        - { path: ^/api, roles: PUBLIC_ACCESS }
         - { path: ^/imagen, roles: ROLE_USER }
         - { path: ^/imagen/new, roles: ROLE_USER }
         - { path: ^/imagen/edit, roles: ROLE_ADMIN }
