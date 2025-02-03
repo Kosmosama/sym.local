@@ -42,7 +42,6 @@ class ImagenApiController extends BaseApiController //Ya tendremos disponibles g
         $descripcion = $request->query->get('descripcion');
         $fechaInicial = $request->query->get('fechaInicial');
         $fechaFinal = $request->query->get('fechaFinal');
-
         $imagenes = $imagenBLL->getImagenes($order, $descripcion, $fechaInicial, $fechaFinal);
         return $this->getResponse($imagenes);
     }

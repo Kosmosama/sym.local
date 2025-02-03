@@ -81,9 +81,19 @@ class ImagenBLL extends BaseBLL
         ];
     }
 
-    public function getImagenes()
-    {
-        $imagenes = $this->em->getRepository(Imagen::class)->findAll();
+    public function getImagenes(
+        ?string $order,
+        ?string $descripcion,
+        ?string $fechaInicial,
+        ?string $fechaFinal
+    ) {
+        $imagenes = $this->em->getRepository(Imagen::class)->findImagenes(
+            $order,
+            $descripcion,
+            $fechaInicial,
+            $fechaFinal,
+            $usuario = null
+        );
         return $this->entitiesToArray($imagenes);
     }
 }

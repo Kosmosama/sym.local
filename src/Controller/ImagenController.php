@@ -60,31 +60,7 @@ final class ImagenController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/busqueda', name: 'app_imagen_index_busqueda', methods: ['POST'])]
-    public function busqueda(Request $request, ImagenRepository $imagenRepository): Response
-    {
-        $busqueda = $request->request->get('busqueda');
-        $fechaInicial = $request->request->get('fechaInicial');
-        $fechaFinal = $request->request->get('fechaFinal');
-        $usuarioLogueado = $this->getUser();
-        $imagenes = $imagenRepository->findImagenes($busqueda, $fechaInicial, $fechaFinal, $usuarioLogueado);
-        return $this->render('imagen/index.html.twig', [
-            'imagens' => $imagenes,
-            'busqueda' => $busqueda,
-            'fechaInicial' => $fechaInicial,
-            'fechaFinal' => $fechaFinal
-            ]);
-    }
-
-    #[Route('/{id}', name: 'app_imagen_show', methods: ['GET'])]
-    public function show(Imagen $imagen): Response
-    {
-        return $this->render('imagen/show.html.twig', [
-            'imagen' => $imagen,
-        ]);
-    }
-
+    
     #[Route('/{id}/edit', name: 'app_imagen_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Imagen $imagen, EntityManagerInterface $entityManager): Response
     {
@@ -92,6 +68,16 @@ final class ImagenController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['nombre']->getData();
+            // Generamos un nombre único
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            // Move the file to the directory where brochures are stored
+            $file->move($this->getParameter('images_directory_subidas'), $fileName);
+            // Actualizamos el nombre del archivo en el objeto imagen al nuevo generado
+            $imagen->setNombre($fileName);
+            $usuario = $this->getUser();
+            $imagen->setUsuario($usuario);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_imagen_index', [], Response::HTTP_SEE_OTHER);
@@ -102,6 +88,30 @@ final class ImagenController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/busqueda', name: 'app_imagen_index_busqueda', methods: ['POST'])]
+    public function busqueda(Request $request, ImagenRepository $imagenRepository): Response
+    {
+        $busqueda = $request->request->get('busqueda');
+        $fechaInicial = $request->request->get('fechaInicial');
+        $fechaFinal = $request->request->get('fechaFinal');
+        $usuarioLogueado = $this->getUser();
+        $imagenes = $imagenRepository->findImagenes(null, $busqueda, $fechaInicial, $fechaFinal, $usuarioLogueado);
+        return $this->render('imagen/index.html.twig', [
+            'imagens' => $imagenes,
+            'busqueda' => $busqueda,
+            'fechaInicial' => $fechaInicial,
+            'fechaFinal' => $fechaFinal
+            ]);
+    }        
+    
+    #[Route('/{id}', name: 'app_imagen_show', methods: ['GET'])]
+    public function show(Imagen $imagen): Response
+    {
+        return $this->render('imagen/show.html.twig', [
+            'imagen' => $imagen,
+        ]);    
+    }    
 
     #[Route('/{id}', name: 'app_imagen_delete', methods: ['POST'])]
     public function delete(Request $request, Imagen $imagen, EntityManagerInterface $entityManager): Response
